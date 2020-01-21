@@ -17,14 +17,10 @@ class IdeaList extends Component {
                 this.setState({
                     ideas:res.data
                 })
-    //         const meal = res.data.meals;
-    //         if (typeof meal === "object") {
-    //           this.setState({ meal });
-    //         }
           })
 
       }
-      renderSearchResults = () => {
+      renderResults = () => {
         const { ideas } = this.state
         if ( Object.keys (ideas).length && ideas.length){
             return(
@@ -44,7 +40,7 @@ class IdeaList extends Component {
       render() {
           return (
               <>
-              {this.renderSearchResults()}
+              {this.renderResults()}
               </>
           )
         // var data = this.state.meal;

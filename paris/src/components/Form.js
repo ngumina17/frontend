@@ -1,35 +1,43 @@
 import React from 'react';
+import axios from 'axios';
 
 
 class Form extends React.Component {
-state = {
-    input: ''
-}
+  state = {
+    input: ""
+  };
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        //grab the value from state and pass back up to App
-        console.log('handleSubmit')
-        //update state to clear the form
-        this.setState ({
-            input: ""
-        })
+  handleChange = (e) => {
+      console.log(e.target.value)
+      const value = e.target.value;
+      this.setState ({
+          input: e.target.value
+      })
+  }
 
-    }
+  handleSubmit = e => {
+    e.preventDefault();
+    //grab the value from state and pass back up to App
 
-    render () {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input 
-                    type = "text" 
-                    className = "form"
-                    placeholder = "New Ideas"
-                />
-              <button className = "form">Submit</button>    
-                
-            </form>
-        )
-    }
+    //update state to clear the form
+    axios
+      .post("http://localhost:4000/Paris", {
+        idea: this.state.input
+      })
+      .then(res => {});
+    this.setState({
+      input: ''
+    });
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" className="form" placeholder="New Ideas" onChange={this.handleChange}/>
+        <button className="form">Submit</button>
+      </form>
+    );
+  }
 }
 
 export default Form ;
