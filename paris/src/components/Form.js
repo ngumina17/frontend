@@ -17,14 +17,12 @@ class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    //grab the value from state and pass back up to App
-
-    //update state to clear the form
     axios
       .post("http://localhost:4000/Paris", {
         idea: this.state.input
       })
       .then(res => {});
+    //   this.props.addIdea(this.state.input)
     this.setState({
       input: ''
     });
