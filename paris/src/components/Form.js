@@ -6,9 +6,9 @@ class Form extends React.Component {
     constructor(props) {
         super(props)
     }
-  state = {
-    input: ""
-  };
+      state = {
+        input: ""
+      };
 
   handleChange = (e) => {
     //   console.log(e.target.value)
@@ -20,17 +20,7 @@ class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.input)
-    
-    // axios
-    //   .post("http://localhost:4000/Paris", {
-    //     idea: this.state.input
-    //   })
-    //   .then(res => {});
-    // this.setState({
-    //   input: ''
-    // });
-
+    // console.log(this.state.input)
    this.props.submit(this.state.input)
   };
 

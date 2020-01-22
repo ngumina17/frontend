@@ -12,7 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ideas: {}
+      ideas: [],
+      favorited: true
     };
   }
   componentDidMount() {
@@ -20,13 +21,30 @@ class App extends Component {
     axios.get(url).then(res => {
       // console.log(res.data)
       this.setState({
-        ideas: res.data
+        ideas: res.data,
+        favorited: res.data
+       
       });
     });
   }
 
+  handleDelete = (id, arrayIndex, currentArray) => {
+    axios
+      .delete(`http://localhost:4000/Paris/${id}`)
+      .then(res => {
+        this.removeFromArray(currentArray, arrayIndex)
+      });
+
+  };
+
+  removeFromArray = (array, arrayIndex) =>{
+    this.setState((prevState) =>{
+      prevState[array].splice(arrayIndex, 1)
+    })
+  }
+
   handlePost = e => {
-    console.log(e);
+    // console.log(e);
     axios
       .post("http://localhost:4000/Paris", {
         idea: e
@@ -39,12 +57,33 @@ class App extends Component {
 
   };
 
+  handlePut = e =>{
+    console.log(e)
+    axios
+      .put("http://localhost:4000/Paris", {
+        favorited: e
+      })
+      .then (res => {
+        console.log('put')
+        this.setState({
+          favorited: [...this.state.favorited,{ favorited: e }]
+        })
+      
+      })
+
+  }
+
+
   render() {
     return (
       <div>
         <Header />
         <Form submit={this.handlePost} />
-        <IdeaList ideas={this.state.ideas} />
+        <IdeaList 
+          ideas={this.state.ideas} 
+          put={this.handlePut} 
+          delete={this.handleDelete}
+        />
       </div>
     );
   }
