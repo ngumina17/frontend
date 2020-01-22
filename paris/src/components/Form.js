@@ -1,14 +1,17 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 
 class Form extends React.Component {
+    constructor(props) {
+        super(props)
+    }
   state = {
     input: ""
   };
 
   handleChange = (e) => {
-      console.log(e.target.value)
+    //   console.log(e.target.value)
       const value = e.target.value;
       this.setState ({
           input: e.target.value
@@ -17,15 +20,18 @@ class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    axios
-      .post("http://localhost:4000/Paris", {
-        idea: this.state.input
-      })
-      .then(res => {});
-    //   this.props.addIdea(this.state.input)
-    this.setState({
-      input: ''
-    });
+    console.log(this.state.input)
+    
+    // axios
+    //   .post("http://localhost:4000/Paris", {
+    //     idea: this.state.input
+    //   })
+    //   .then(res => {});
+    // this.setState({
+    //   input: ''
+    // });
+
+   this.props.submit(this.state.input)
   };
 
   render() {

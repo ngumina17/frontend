@@ -28,11 +28,23 @@ class App extends Component {
 
   }
 
+  handlePost = e => {
+    console.log(e)
+    axios
+      .post("http://localhost:4000/Paris", {
+        idea: e
+      })
+      .then(res => {});
+    this.setState({
+      input: ''
+    });
+  };
+
   render() {
     return (
       <div>
         <Header />
-        <Form /> 
+        <Form submit={this.handlePost} /> 
         <IdeaList 
         ideas={this.state.ideas}
         /> 
