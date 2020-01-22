@@ -17,37 +17,34 @@ class App extends Component {
   }
   componentDidMount() {
     const url = "http://localhost:4000/Paris";
-    axios
-      .get(url)
-      .then(res => {
-            // console.log(res.data)
-            this.setState({
-                ideas:res.data
-            })
-      })
-
+    axios.get(url).then(res => {
+      // console.log(res.data)
+      this.setState({
+        ideas: res.data
+      });
+    });
   }
 
   handlePost = e => {
-    console.log(e)
+    console.log(e);
     axios
       .post("http://localhost:4000/Paris", {
         idea: e
       })
-      .then(res => {});
-    this.setState({
-      input: ''
-    });
+      .then(res => {
+        this.setState({
+          ideas: [...this.state.ideas,{idea:e}]
+        });
+      });
+
   };
 
   render() {
     return (
       <div>
         <Header />
-        <Form submit={this.handlePost} /> 
-        <IdeaList 
-        ideas={this.state.ideas}
-        /> 
+        <Form submit={this.handlePost} />
+        <IdeaList ideas={this.state.ideas} />
       </div>
     );
   }
