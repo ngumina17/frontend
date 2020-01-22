@@ -17,22 +17,40 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    const url = "http://localhost:4000/Paris";
-    axios.get(url).then(res => {
-      // console.log(res.data)
-      this.setState({
-        ideas: res.data,
-        favorited: res.data
+    this.getData()
+    // const url = "http://localhost:4000/Paris";
+    // axios.get(url).then(res => {
+    //   // console.log(res.data)
+    //   this.setState({
+    //     ideas: res.data,
+    //     favorited: res.data
        
-      });
-    });
+    //   });
+    // });
   }
+
+  getData () {
+      const url = "http://localhost:4000/Paris";
+      axios.get(url).then(res => {
+        // console.log(res.data)
+        this.setState({
+          ideas: res.data,
+          favorited: res.data
+         
+        });
+      });
+    }
+  
+
+
 
   handleDelete = (id, arrayIndex, currentArray) => {
     axios
       .delete(`http://localhost:4000/Paris/${id}`)
       .then(res => {
         this.removeFromArray(currentArray, arrayIndex)
+      }).then(() => {
+        this.getData()
       });
 
   };
