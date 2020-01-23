@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       ideas: [],
-      favorited: true
+      favorited: false
     };
   }
   componentDidMount() {
@@ -65,7 +65,7 @@ class App extends Component {
     // console.log(e);
     axios
       .post("http://localhost:4000/Paris", {
-        idea: e
+        idea: e, favorited: false
       })
       .then(res => {
         this.setState({
@@ -76,20 +76,19 @@ class App extends Component {
   };
 
   handlePut = (id, arrayIndex, currentArray) =>{
+    let toggleTrue = !this.state.ideas[arrayIndex].favorited
     axios
-      .put(`http://localhost:4000/Paris/${id}`)
+      .put(`http://localhost:4000/Paris/${id}`,
+      {"idea": this.state.ideas[arrayIndex].idea, "favorited": toggleTrue} )
       .then (res => {
         console.log('put')
-        this.setState({
-          favorited: [...this.state.favorited, {favorited: id }]
-        })
-      
-      })
+      }).then(() => this.getData())
 
   }
 
 
   render() {
+    console.log(this.state.ideas)
     return (
       <div>
         <Header />

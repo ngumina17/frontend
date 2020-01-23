@@ -1,20 +1,20 @@
 import React, { Component } from "react";
+import "./ideaList.css"
 
 class IdeaList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
-    state = {
-      favorited: true,
-      ideas: ''
-    };
+  state = {
+    favorited: false,
+    ideas: ""
+  };
 
   handleClickFav = () => {
-    console.log('put')
-    this.props.put(this.state.favorited)
-  }
+    console.log("put");
+    this.props.put(this.state.favorited);
+  };
 
- 
   renderResults = () => {
     const ideas = this.props.ideas;
     const favorite = this.props.favorited;
@@ -24,15 +24,25 @@ class IdeaList extends Component {
           {ideas.map((idea, index) => {
             return (
               <div key={index} className="result-item">
-                <p>{idea.idea}</p>
-                <button onClick=
-                {() => {this.props.put(idea._id, index, "favorite")}}>Fav</button>
-                <button 
-                  onClick=
-                    { () =>{this.props.delete
-                      (idea._id, index, "ideas")
-                    }}
-                >Delete</button>
+                <p
+                  className={idea.favorited ? "favorited" : "false"}
+                >
+                  {idea.idea}
+                </p>
+                <button
+                  onClick={() => {
+                    this.props.put(idea._id, index, "favorite");
+                  }}
+                >
+                  Fav
+                </button>
+                <button
+                  onClick={() => {
+                    this.props.delete(idea._id, index, "ideas");
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             );
           })}
@@ -47,10 +57,5 @@ class IdeaList extends Component {
     return <>{this.renderResults()}</>;
   }
 }
-
-
-
-
-
 
 export default IdeaList;
