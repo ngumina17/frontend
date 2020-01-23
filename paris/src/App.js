@@ -75,16 +75,13 @@ class App extends Component {
 
   };
 
-  handlePut = e =>{
-    console.log(e)
+  handlePut = (id, arrayIndex, currentArray) =>{
     axios
-      .put("http://localhost:4000/Paris", {
-        favorited: e
-      })
+      .put(`http://localhost:4000/Paris/${id}`)
       .then (res => {
         console.log('put')
         this.setState({
-          favorited: [...this.state.favorited,{ favorited: e }]
+          favorited: [...this.state.favorited, {favorited: id }]
         })
       
       })
@@ -101,6 +98,7 @@ class App extends Component {
           ideas={this.state.ideas} 
           put={this.handlePut} 
           delete={this.handleDelete}
+          favorite={this.state.favorited}
         />
       </div>
     );

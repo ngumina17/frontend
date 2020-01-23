@@ -14,9 +14,10 @@ class IdeaList extends Component {
     this.props.put(this.state.favorited)
   }
 
-
+ 
   renderResults = () => {
     const ideas = this.props.ideas;
+    const favorite = this.props.favorited;
     if (Object.keys(ideas).length && ideas.length) {
       return (
         <div className="results-container">
@@ -24,14 +25,14 @@ class IdeaList extends Component {
             return (
               <div key={index} className="result-item">
                 <p>{idea.idea}</p>
-                <button onClick={this.handleClickFav}>Fav</button>
+                <button onClick=
+                {() => {this.props.put(idea._id, index, "favorite")}}>Fav</button>
                 <button 
                   onClick=
                     { () =>{this.props.delete
                       (idea._id, index, "ideas")
                     }}
                 >Delete</button>
-                {/* <div>{idea.favorited}</div> */}
               </div>
             );
           })}
